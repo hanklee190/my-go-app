@@ -1,15 +1,15 @@
-dockerfile
-
-# 构建阶段
-FROM golang:1.24 AS builder
+FROM golang:1.20-alpine AS build
 WORKDIR /app
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o myapp
+RUN go build -o myapp .
+RUN ls -l /app  # ✅ 查看构建后是否存在 binary
 
-# 运行阶段
 FROM alpine:latest
 WORKDIR /app
-COPY --from=builder /app/myapp .
+COPY --from=build /app/myapp .
+
+RUN ls -l /app  # ✅ 再次确认 copy 成功
+
+ENV PORT=8080
 EXPOSE 8080
 CMD ["./myapp"]
-
