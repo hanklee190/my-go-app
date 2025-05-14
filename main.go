@@ -49,7 +49,7 @@ func main() {
     )
 
     // 初始化数据库，启用日志并调整慢查询阈值
-    db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+    db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
         Logger: logger.New(
             log.New(os.Stdout, "\r\n", log.LstdFlags),
             logger.Config{
