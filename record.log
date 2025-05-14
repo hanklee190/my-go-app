@@ -1,0 +1,7 @@
+
+清理
+go clean -modcache
+go mod tidy
+
+
+go run main.go
